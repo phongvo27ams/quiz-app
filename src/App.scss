@@ -1,14 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+
 body {
     padding: 0;
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Raleway', sans-serif !important;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
+@media (min-width: 1350px) {
+
+    .container,
+    .container-xl,
+    .container-lg,
+    .container-md,
+    .container-sm {
+        max-width: 1360px !important;
+    }
+}
+
 .app-container {
     .header-container {
-        .navbar-nav {
+        .btn-login {
+            border-radius: 6px;
+            margin-right: 15px;
+            height: 40px;
+            padding: 0px 15px;
+            border: 1px solid #535353;
+        }
+
+        .btn-signup {
+            border-radius: 6px;
+            padding: 0px 15px;
+            height: 40px;
+            color: #ffffff;
+            background-color: #3c3c3c;
+
+            &:hover {
+                background-color: #000000;
+            }
+        }
+
+        .navbar {
+            padding-top: 20px;
+            z-index: 10;
+            background-color: rgba(0, 0, 0, 0) !important;
+
             .nav-link {
                 &.active {
                     font-weight: 600;
@@ -17,4 +54,43 @@ body {
             }
         }
     }
+
+    .home-container {
+        .home-content {
+            padding: 100px;
+            position: relative;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+
+            .big-title {
+                font-size: 64px;
+            }
+
+            .description {
+                font-size: 24px;
+            }
+
+            .button-container {
+                button {
+                    border-radius: 6px;
+                    padding: 0px 15px;
+                    background-color: #3c3c3c;
+                    color: #ffffff;
+                    height: 40px;
+
+                    &:hover {
+                        background-color: #000000;
+                    }
+                }
+            }
+        }
+    }
+}
+
+video {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
 }
