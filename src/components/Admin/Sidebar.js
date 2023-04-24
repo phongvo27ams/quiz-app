@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarFooter, SidebarContent } from 'react-pro-sidebar'
 
@@ -41,9 +42,10 @@ const Sidebar = ({ collapsed, toggled, handleToggleSidebar }) => {
                     <Menu iconShape="circle">
                         <MenuItem
                             icon={<FaTachometerAlt />}
-                            // suffix={<span className="badge red">New</span>}
+                        // suffix={<span className="badge red">New</span>}
                         >
                             Dashboard
+                            <Link to="/admin" />
                         </MenuItem>
                     </Menu>
 
@@ -53,7 +55,10 @@ const Sidebar = ({ collapsed, toggled, handleToggleSidebar }) => {
                             icon={<FaGem />}
                             title="Features"
                         >
-                            <MenuItem>Users</MenuItem>
+                            <MenuItem>
+                                Users
+                                <Link to="/admin/manage-user" />
+                            </MenuItem>
                             <MenuItem>Quizzes</MenuItem>
                             <MenuItem>Questions</MenuItem>
                         </SubMenu>

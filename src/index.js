@@ -6,6 +6,8 @@ import App from './App'
 import Home from '../src/components/Home/Home'
 import User from '../src/components/User/User'
 import Admin from '../src/components/Admin/Admin'
+import ManageUser from './components/Admin/Content/ManageUser'
+import DashBoard from './components/Admin/Content/DashBoard'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -16,10 +18,13 @@ root.render(
         <Routes>
             <Route path='/' element={<App />}>
                 <Route index element={<Home />} />
-                <Route path='/user' element={<User />} />
+                <Route path='user' element={<User />} />
             </Route>
 
-            <Route path='/admin' element={<Admin />} />
+            <Route path='/admin' element={<Admin />}>
+                <Route index element={<DashBoard />} />
+                <Route path='manage-user' element={<ManageUser />} />
+            </Route>
         </Routes>
     </BrowserRouter>
 )

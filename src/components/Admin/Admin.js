@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { Outlet } from 'react-router-dom'
+
 import Sidebar from './Sidebar'
 
 import { FaBars } from 'react-icons/fa'
@@ -17,9 +19,13 @@ const Admin = () => {
             </div>
 
             <div className="admin-content">
-                <FaBars onClick={handleClick} />
+                <div className="admin-header">
+                    <FaBars onClick={handleClick} />
+                </div>
 
-                Admin Content
+                <div className="admin-main">
+                    <Outlet />
+                </div>
             </div>
         </div>
     )
