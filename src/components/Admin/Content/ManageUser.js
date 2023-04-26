@@ -4,17 +4,17 @@ import './ManageUser.scss'
 
 const ManageUser = () => {
     return (
-        <div classNameName="manage-user-container">
-            <div classNameName="title">
-                Manage User
+        <div className="manage-user-container">
+            <div className="title">
+                Manage Users
             </div>
 
-            <div classNameName="user-content">
-                <div>
+            <div className="user-content">
+                <div className="btn-add-new">
                     <ModalCreateUser />
                 </div>
 
-                <div>
+                <div className="table-user-container">
                     Users table
                 </div>
             </div>

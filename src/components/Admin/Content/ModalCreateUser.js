@@ -1,13 +1,27 @@
 import React, { useState } from 'react'
+
+import { toast } from 'react-toastify'
+
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 
 import { AiFillPlusCircle } from 'react-icons/ai'
 
+import { postCreateUser } from '../../../services/apiservices'
+
 const ModalCreateUser = () => {
     const [show, setShow] = useState(false)
 
-    const handleClose = () => setShow(false)
+    const handleClose = () => {
+        setShow(false)
+        setEmail('')
+        setPassword('')
+        setUsername('')
+        setRole('')
+        setImage('')
+        setPreviewImage('')
+    }
+
     const handleShow = () => setShow(true)
 
     const [email, setEmail] = useState('')
@@ -24,9 +38,39 @@ const ModalCreateUser = () => {
         }
     }
 
+    const validateEmail = (email) => {
+        return String(email)
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            )
+    }
+
+    const handleSubmitCreateUser = async () => {
+        const isValidEmail = validateEmail(email)
+        if (!isValidEmail) {
+            toast.error('Invalid email address')
+            return
+        }
+        if (!password) {
+            toast.error('Invalid password')
+            return
+        }
+
+        let data = await postCreateUser(email, username, password, role, image)
+        if (data && data.EC === 0) {
+            toast.success(data.EM)
+            handleClose()
+        }
+        if (data && data.EC !== 0) {
+            toast.error(data.EM)
+        }
+    }
+
     return (
         <>
-            <Button variant="primary" onClick={handleShow}>
+            <Button variant="outline-primary" onClick={handleShow}>
+                <AiFillPlusCircle />
                 Add new user
             </Button>
 
@@ -84,14 +128,14 @@ const ModalCreateUser = () => {
                                 className="form-select"
                                 onChange={e => setRole(e.target.value)}
                             >
-                                <option selected>Choose...</option>
+                                <option value="selected">Choose...</option>
                                 <option value="USER">User</option>
                                 <option value="ADMIN">Admin</option>
                             </select>
                         </div>
 
-                        <div class="col-md-12">
-                            <label class="form-label label-upload" htmlFor="image">
+                        <div className="col-md-12">
+                            <label className="form-label label-upload" htmlFor="image">
                                 <AiFillPlusCircle />
                                 Upload image
                             </label>
@@ -119,7 +163,7 @@ const ModalCreateUser = () => {
                         Close
                     </Button>
 
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant="primary" onClick={handleSubmitCreateUser}>
                         Save
                     </Button>
                 </Modal.Footer>
