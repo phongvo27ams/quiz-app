@@ -9,7 +9,7 @@ import { AiFillPlusCircle } from 'react-icons/ai'
 
 import { postCreateUser } from '../../../services/apiService'
 
-const ModalCreateUser = () => {
+const ModalCreateUser = (props) => {
     const [show, setShow] = useState(false)
 
     const handleClose = () => {
@@ -61,6 +61,7 @@ const ModalCreateUser = () => {
         if (data && data.EC === 0) {
             toast.success(data.EM)
             handleClose()
+            await props.fetchListUsers()
         }
         if (data && data.EC !== 0) {
             toast.error(data.EM)

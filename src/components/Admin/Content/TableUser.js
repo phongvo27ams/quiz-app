@@ -1,24 +1,8 @@
-import React, { useEffect, useState } from 'react'
-
-import { getAllUsers } from '../../../services/apiService'
-
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 
-const TableUser = () => {
-    const [listUsers, setListUsers] = useState([])
-
-    const fetchListUsers = async () => {
-        let res = await getAllUsers()
-
-        if (res.EC === 0) {
-            setListUsers(res.DT)
-        }
-    }
-
-    useEffect(() => {
-        fetchListUsers()
-    }, [])
+const TableUser = (props) => {
+    const { listUsers } = props
 
     return (
         <Table striped bordered hover>
