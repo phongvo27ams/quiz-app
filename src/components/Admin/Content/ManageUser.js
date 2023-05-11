@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from 'react'
 
 import ModalCreateUser from './ModalCreateUser'
+import ModalUpdateUser from './ModalUpdateUser'
+import TableUser from './TableUser'
+
+import Button from 'react-bootstrap/Button'
+
+import { AiFillPlusCircle } from 'react-icons/ai'
 
 import { getAllUsers } from '../../../services/apiService'
 
 import './ManageUser.scss'
-import TableUser from './TableUser'
 
 const ManageUser = () => {
+    const [showModalCreateUser, setShowModalCreateUser] = useState(false)
+    const [showModalUpdateUser, setShowModalUpdateUser] = useState(false)
+    const [dataUpdate, setDataUpdate] = useState({})
+
     const [listUsers, setListUsers] = useState([])
 
     const fetchListUsers = async () => {
@@ -16,6 +25,11 @@ const ManageUser = () => {
         if (res.EC === 0) {
             setListUsers(res.DT)
         }
+    }
+
+    const handleClickBtnUpdate = (user) => {
+        setShowModalUpdateUser(true)
+        setDataUpdate(user)
     }
 
     useEffect(() => {
@@ -30,12 +44,29 @@ const ManageUser = () => {
 
             <div className="user-content">
                 <div className="btn-add-new">
-                    <ModalCreateUser fetchListUsers={fetchListUsers} />
+                    <Button variant="outline-primary" onClick={() => setShowModalCreateUser(true)}>
+                        <AiFillPlusCircle />
+                        Add new user
+                    </Button>
                 </div>
 
                 <div className="table-user-container">
-                    <TableUser listUsers={listUsers} />
+                    <TableUser
+                        listUsers={listUsers}
+                        handleClickBtnUpdate={handleClickBtnUpdate}
+                    />
                 </div>
+
+                <ModalCreateUser
+                    show={showModalCreateUser}
+                    setShow={setShowModalCreateUser}
+                />
+
+                <ModalUpdateUser
+                    show={showModalUpdateUser}
+                    setShow={setShowModalUpdateUser}
+                    dataUpdate={dataUpdate}
+                />
             </div>
         </div>
     )
