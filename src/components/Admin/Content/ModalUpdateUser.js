@@ -9,10 +9,10 @@ import Modal from 'react-bootstrap/Modal'
 
 import { AiFillPlusCircle } from 'react-icons/ai'
 
-import { postCreateUser } from '../../../services/apiService'
+import { putUpdateUser } from '../../../services/apiService'
 
 const ModalCreateUser = (props) => {
-    const { show, setShow, dataUpdate } = props
+    const { show, setShow, dataUpdate, resetUpdateData } = props
 
     const handleClose = () => {
         setShow(false)
@@ -22,6 +22,7 @@ const ModalCreateUser = (props) => {
         setRole('')
         setImage('')
         setPreviewImage('')
+        resetUpdateData()
     }
 
     const [email, setEmail] = useState('')
@@ -63,12 +64,8 @@ const ModalCreateUser = (props) => {
             toast.error('Invalid email address')
             return
         }
-        if (!password) {
-            toast.error('Invalid password')
-            return
-        }
 
-        let data = await postCreateUser(email, username, password, role, image)
+        let data = await putUpdateUser(dataUpdate.id, username, role, image)
         if (data && data.EC === 0) {
             toast.success(data.EM)
             handleClose()

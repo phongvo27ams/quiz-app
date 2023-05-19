@@ -19,6 +19,10 @@ const ManageUser = () => {
 
     const [listUsers, setListUsers] = useState([])
 
+    useEffect(() => {
+        fetchListUsers()
+    }, [])
+
     const fetchListUsers = async () => {
         let res = await getAllUsers()
 
@@ -32,9 +36,9 @@ const ManageUser = () => {
         setDataUpdate(user)
     }
 
-    useEffect(() => {
-        fetchListUsers()
-    }, [])
+    const resetUpdateData = () => {
+        setDataUpdate({})
+    }
 
     return (
         <div className="manage-user-container">
@@ -60,12 +64,15 @@ const ManageUser = () => {
                 <ModalCreateUser
                     show={showModalCreateUser}
                     setShow={setShowModalCreateUser}
+                    fetchListUsers={fetchListUsers}
                 />
 
                 <ModalUpdateUser
                     show={showModalUpdateUser}
                     setShow={setShowModalUpdateUser}
                     dataUpdate={dataUpdate}
+                    fetchListUsers={fetchListUsers}
+                    resetUpdateData={resetUpdateData}
                 />
             </div>
         </div>
