@@ -2,7 +2,7 @@ import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 
 const TableUser = (props) => {
-    const { listUsers } = props
+    const { listUsers, handleClickBtnUpdate, handleClickBtnDelete } = props
 
     return (
         <Table striped bordered hover>
@@ -26,15 +26,20 @@ const TableUser = (props) => {
                                 <td className="w-25">{item.email}</td>
                                 <td className="w-25">{item.role}</td>
                                 <td>
-                                    <Button variant="primary">View</Button>
                                     <Button
                                         variant="secondary"
                                         className="mx-2"
-                                        onClick={() => props.handleClickBtnUpdate(item)}
+                                        onClick={() => handleClickBtnUpdate(item)}
                                     >
                                         Update
                                     </Button>
-                                    <Button variant="danger">Delete</Button>
+
+                                    <Button
+                                        variant="danger"
+                                        onClick={() => handleClickBtnDelete(item)}
+                                    >
+                                        Delete
+                                    </Button>
                                 </td>
                             </tr>
                         )
