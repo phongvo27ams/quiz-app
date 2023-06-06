@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import TableUser from './TableUser'
+import TableUserPaginate from './TableUserPaginate'
 import ModalCreateUser from './ModalCreateUser'
 import ModalUpdateUser from './ModalUpdateUser'
 import ModalDeleteUser from './ModalDeleteUser'
@@ -9,11 +10,14 @@ import Button from 'react-bootstrap/Button'
 
 import { AiFillPlusCircle } from 'react-icons/ai'
 
-import { getAllUsers } from '../../../services/apiService'
+import { getAllUsers, getUsersWithPaginate } from '../../../services/apiService'
 
 import './ManageUser.scss'
 
 const ManageUser = () => {
+    const LIMIT_USER = 6
+    const [pageCount, setPageCount] = useState(0)
+
     const [showModalCreateUser, setShowModalCreateUser] = useState(false)
     const [showModalUpdateUser, setShowModalUpdateUser] = useState(false)
     const [dataUpdate, setDataUpdate] = useState({})
@@ -23,7 +27,7 @@ const ManageUser = () => {
     const [listUsers, setListUsers] = useState([])
 
     useEffect(() => {
-        fetchListUsers()
+        fetchListUsersWithPaginate(1)
     }, [])
 
     const fetchListUsers = async () => {
@@ -31,6 +35,15 @@ const ManageUser = () => {
 
         if (res.EC === 0) {
             setListUsers(res.DT)
+        }
+    }
+
+    const fetchListUsersWithPaginate = async (page) => {
+        let res = await getUsersWithPaginate(page, LIMIT_USER)
+
+        if (res.EC === 0) {
+            setListUsers(res.DT.users)
+            setPageCount(res.DT.totalPages)
         }
     }
 
@@ -63,10 +76,12 @@ const ManageUser = () => {
                 </div>
 
                 <div className="table-user-container">
-                    <TableUser
+                    <TableUserPaginate
                         listUsers={listUsers}
                         handleClickBtnUpdate={handleClickBtnUpdate}
                         handleClickBtnDelete={handleClickBtnDelete}
+                        pageCount={pageCount}
+                        fetchListUsersWithPaginate={fetchListUsersWithPaginate}
                     />
                 </div>
 
