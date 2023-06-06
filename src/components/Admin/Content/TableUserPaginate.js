@@ -5,10 +5,11 @@ import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 
 const TableUserPaginate = (props) => {
-    const { listUsers, handleClickBtnUpdate, handleClickBtnDelete, pageCount, fetchListUsersWithPaginate } = props
+    const { listUsers, handleClickBtnUpdate, handleClickBtnDelete, pageCount, fetchListUsersWithPaginate, currentPage, setCurrentPage } = props
 
     const handlePageClick = (e) => {
         fetchListUsersWithPaginate(+e.selected + 1)
+        setCurrentPage(+e.selected + 1)
     }
 
     return (
@@ -29,7 +30,7 @@ const TableUserPaginate = (props) => {
                         listUsers.map((item, index) => {
                             return (
                                 <tr key={`table-users-${index}`}>
-                                    <td>{index + 1}</td>
+                                    <td>{item.id}</td>
                                     <td className="w-25">{item.username}</td>
                                     <td className="w-25">{item.email}</td>
                                     <td className="w-25">{item.role}</td>
@@ -82,6 +83,7 @@ const TableUserPaginate = (props) => {
                     containerClassName="pagination"
                     activeClassName="active"
                     renderOnZeroPageCount={null}
+                    forcePage={currentPage - 1}
                 />
             </div>
         </>
