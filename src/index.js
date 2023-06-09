@@ -8,6 +8,7 @@ import User from '../src/components/User/User'
 import Admin from '../src/components/Admin/Admin'
 import ManageUser from './components/Admin/Content/ManageUser'
 import DashBoard from './components/Admin/Content/DashBoard'
+import Login from './components/Auth/Login'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -25,6 +26,8 @@ root.render(
                 <Route index element={<DashBoard />} />
                 <Route path='manage-user' element={<ManageUser />} />
             </Route>
+
+            <Route path='/login' element={<Login />} />
         </Routes>
     </BrowserRouter>
 )
