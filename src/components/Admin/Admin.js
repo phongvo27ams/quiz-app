@@ -5,9 +5,6 @@ import Sidebar from './Sidebar'
 
 import { FaBars } from 'react-icons/fa'
 
-import { ToastContainer } from 'react-toastify'
-
-import 'react-toastify/dist/ReactToastify.css'
 import './Admin.scss'
 
 const Admin = () => {
@@ -30,19 +27,6 @@ const Admin = () => {
                     <Outlet />
                 </div>
             </div>
-
-            <ToastContainer
-                position="top-right"
-                autoClose={3000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
         </div>
     )
 }
