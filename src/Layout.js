@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -11,6 +11,7 @@ import Admin from '../src/components/Admin/Admin'
 import ManageUser from './components/Admin/Content/ManageUser'
 import DashBoard from './components/Admin/Content/DashBoard'
 import Login from './components/Auth/Login'
+import Register from './components/Auth/Register'
 
 const Layout = () => {
     return (
@@ -27,6 +28,7 @@ const Layout = () => {
                 </Route>
 
                 <Route path='/login' element={<Login />} />
+                <Route path='/register' element={<Register />} />
             </Routes>
 
             <ToastContainer
